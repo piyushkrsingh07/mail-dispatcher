@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"html/template"
 	"sync"
 	//"time"
 )
@@ -44,4 +46,23 @@ func main(){
 
 
 
+}
+
+func executeTemplate(r Recipient) (string,error){
+	// INBUILT IN GOLABG
+	t,err:=template.ParseFiles("email.tmpl") // file ko parse kr dia
+
+	if err != nil {
+		return "",err
+	}
+// we need to pass the buffer variable->memory space
+// file ko memory space de di
+var tpl bytes.Buffer
+	 err=t.Execute(&tpl,r)
+	 if err != nil {
+		return "",err
+	 }
+	 ///buffer data ko string m convert
+
+	 return tpl.String(),nil
 }

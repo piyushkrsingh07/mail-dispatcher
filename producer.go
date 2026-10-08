@@ -7,7 +7,8 @@ import (
 )
 
 func loadRecipient(filePath string, ch chan Recipient) error{
-   
+   // ------------------ AFTER ALL THE MAILS HAVE BEEN READ ----------------------
+   defer close(ch)
 	// to read the file
 	f,err:=os.Open(filePath)
 
